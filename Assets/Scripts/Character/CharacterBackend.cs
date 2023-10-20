@@ -26,9 +26,11 @@ public class CharacterBackend
     }
     public void ReduceHealth(AttackData attackData)
     {
+        currentHp -= attack;
+
         // switch (attackData.attackType)
         // {
-        //     case AttackType.Attack:
+        //     case AttackType.DownwardAttack:
         //         {
         //             currentHp -= attack;
         //             break;

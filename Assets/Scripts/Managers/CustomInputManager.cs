@@ -26,7 +26,7 @@ public class CustomInputManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKey)
+        if (Input.anyKeyDown)
         {
             if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {

@@ -8,7 +8,6 @@ public abstract class CharacterBaseState
     public void EnterState(CharacterController characterController, CharacterBaseState nextState)
     {
         characterController.currentState = nextState;
-        characterController.canAttack = true;
         UpdateState(characterController);
     }
 

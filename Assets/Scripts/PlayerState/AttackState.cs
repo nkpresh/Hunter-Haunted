@@ -4,12 +4,13 @@ using System.Diagnostics;
 using CustomController;
 using Enums;
 
+
 public class AttackState : CharacterBaseState
 {
     AttackType attackType;
     public override void UpdateState(CharacterController characterController)
     {
-        // characterController.TakeDamage();
+        characterController.Attack();
         characterController.SwitchState(characterController.idleState);
     }
 }

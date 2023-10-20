@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enums;
@@ -26,8 +27,10 @@ namespace CustomController
         [SerializeField]
         Slider healthBar;
 
-        [SerializeField]
         CharacterBackend characterBackend;
+
+        [HideInInspector]
+        public CharacterController Target;
 
         public CharacterBaseState currentState;
         public CharacterBaseState moveState;
@@ -51,7 +54,8 @@ namespace CustomController
             healthBar.value = characterBackend.currentHp / characterBackend.maxHp;
 
             rb = GetComponent<Rigidbody>();
-
+            // FindTarget();
+            Target = BattleManager.Instance.enemyCollection[0];
         }
 
         void HandleInputs()
@@ -65,25 +69,20 @@ namespace CustomController
                 SwitchState(attackState);
             };
         }
-        public bool canAttack = false;
-        void Update()
+        public void Attack()
         {
-            // if (currentState != null)
-            //     if (canAttack == true)
-            //     {
-            //         currentState.UpdateState(this);
-            //         canAttack = false;
-            //     }
+            OnAttack(Target);
         }
-
-        public void Attack(CharacterController enemy)
+        public void OnAttack(CharacterController enemy)
         {
             enemy.TakeDamage(10);
         }
 
         public void TakeDamage(float amount)
         {
-            Debug.Log("Attacking Enemy");
+            AttackData attack = new AttackData(AttackType.UpwardAttack, amount);
+            characterBackend.ReduceHealth(attack);
+            healthBar.value = characterBackend.currentHp / characterBackend.maxHp;
         }
         public void SwitchState(CharacterBaseState nextState)
         {
@@ -108,6 +107,20 @@ namespace CustomController
         {
             Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
             playerObj.transform.rotation = Quaternion.RotateTowards(playerObj.transform.rotation, rotation, rotateSpeed * Time.deltaTime);
+        }
+
+        public void RotatePlayerToEmeny()
+        {
+            var dotProd = Vector3.Dot(playerObj.transform.forward.normalized, Target.transform.forward.normalized);
+            print(dotProd);
+            if (Math.Abs(dotProd) != 1)
+            {
+                SetRotation(-Target.transform.forward);
+            }
+        }
+        private void Update()
+        {
+            RotatePlayerToEmeny();
         }
     }
 }

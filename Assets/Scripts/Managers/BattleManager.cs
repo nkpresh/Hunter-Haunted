@@ -10,7 +10,7 @@ public class BattleManager : Singleton<BattleManager>
 
     private void Awake()
     {
-        enemyCollection = new List<CharacterController>();
+        // enemyCollection = new List<CharacterController>();
     }
     void Start()
     {
