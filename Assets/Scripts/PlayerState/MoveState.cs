@@ -6,6 +6,6 @@ public class MoveState : CharacterBaseState
 {
     public override void UpdateState(CharacterController characterController)
     {
-
+        
     }
 }

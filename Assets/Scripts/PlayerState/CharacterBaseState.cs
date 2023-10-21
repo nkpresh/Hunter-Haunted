@@ -2,20 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using CustomController;
+using System;
 
 public abstract class CharacterBaseState
 {
-    public void EnterState(CharacterController characterController, CharacterBaseState nextState)
+    public void EnterState(CharacterController characterController)
     {
-        characterController.currentState = nextState;
-        UpdateState(characterController);
+
+        characterController.currentState = this;
     }
 
     public abstract void UpdateState(CharacterController characterController);
 
     public void OnExitState(CharacterController characterController, CharacterBaseState nextState)
     {
-        nextState.EnterState(characterController, nextState);
+        nextState.EnterState(characterController);
     }
 
 }

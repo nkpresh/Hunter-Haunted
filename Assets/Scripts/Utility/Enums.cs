@@ -21,8 +21,9 @@ namespace Enums
     public enum AttackType
     {
         ComboAttack,
-        UpwardAttack,
+        BackwardAttack,
         DownwardAttack,
+        RoundAttack,
         Kick
     }
 

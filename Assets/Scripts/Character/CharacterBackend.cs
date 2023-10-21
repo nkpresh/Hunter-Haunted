@@ -12,9 +12,6 @@ public class CharacterBackend
 
     public float currentHp;
     public float maxHp;
-    public float attack;
-    public float kick;
-    public float ComboAttack;
 
     public AttackData attackData;
 
@@ -24,27 +21,8 @@ public class CharacterBackend
     {
         this.characterController = characterController;
     }
-    public void ReduceHealth(AttackData attackData)
+    public void ReduceHealth(float amount)
     {
-        currentHp -= attack;
-
-        // switch (attackData.attackType)
-        // {
-        //     case AttackType.DownwardAttack:
-        //         {
-        //             currentHp -= attack;
-        //             break;
-        //         }
-        //     case AttackType.ComboAttack:
-        //         {
-        //             currentHp -= ComboAttack;
-        //             break;
-        //         }
-        //     case AttackType.Kick:
-        //         {
-        //             currentHp -= kick;
-        //             break;
-        //         }
-        // }
+        currentHp -= amount;
     }
 }

@@ -10,7 +10,7 @@ public class AttackState : CharacterBaseState
     AttackType attackType;
     public override void UpdateState(CharacterController characterController)
     {
-        characterController.Attack();
-        characterController.SwitchState(characterController.idleState);
+        // characterController.Attack();
+        // characterController.SwitchState(characterController.idleState);
     }
 }
