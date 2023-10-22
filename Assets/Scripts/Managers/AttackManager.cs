@@ -24,8 +24,8 @@ public class AttackManager
         target = BattleManager.Instance.enemyCollection[0];
         targets = new List<CharacterController>();
         this.player = player;
-        this.MaxEnergy = maxEnergy;
-
+        MaxEnergy = maxEnergy;
+        this.currentEnergy = currentEnergy;
     }
 
     public void UpdateAttackTimer()
@@ -38,8 +38,8 @@ public class AttackManager
     }
     public void Attack(AttackType attackType, Action callback)
     {
-        if (canAttack == false) return;
-            switch (attackType)
+        // if (canAttack == false) return;
+        switch (attackType)
         {
             case (AttackType.DownwardAttack):
                 OnDownwardAttack();

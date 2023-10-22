@@ -30,10 +30,10 @@ namespace CustomController
 
         AttackManager attackManager;
 
-        public CharacterBaseState currentState;
-        public CharacterBaseState moveState;
-        public CharacterBaseState idleState;
-        public CharacterBaseState attackState;
+        // public CharacterBaseState currentState;
+        // public CharacterBaseState moveState;
+        // public CharacterBaseState idleState;
+        // public CharacterBaseState attackState;
         void Start()
         {
             HandleInputs();
@@ -51,10 +51,10 @@ namespace CustomController
                 maxHp = 100
             };
             attackManager = new AttackManager(this, 100, 0);
-            moveState = new MoveState();
-            idleState = new IdleState();
-            attackState = new AttackState();
-            currentState = idleState;
+            // moveState = new MoveState();
+            // idleState = new IdleState();
+            // attackState = new AttackState();
+            // currentState = idleState;
             rb = GetComponent<Rigidbody>();
         }
 
@@ -64,13 +64,24 @@ namespace CustomController
                         {
                             MovePlayer(new Vector2(x, y));
                         };
-            CustomInputManager.OnDownwardAttack += (attacktype) =>
+            CustomInputManager.OnDownwardAttack += (attackType) =>
             {
-                SwitchState(attackState, () =>
-                {
 
-                });
+                Attack(attackType);
             };
+        }
+
+        public void Attack(AttackType attackType)
+        {
+            // attackState.EnterState(this, () =>
+            // {
+
+            // });
+            attackManager.Attack(attackType, () =>
+            {
+                print("working attack");
+                // currentState.OnExitState(this, idleState);
+            });
         }
 
         public void TakeDamage(float amount)
@@ -78,10 +89,10 @@ namespace CustomController
             characterBackend.ReduceHealth(amount);
             healthBar.value = characterBackend.currentHp / characterBackend.maxHp;
         }
-        public void SwitchState(CharacterBaseState nextState, Action callback)
-        {
-            currentState.OnExitState(this, nextState);
-        }
+        // public void SwitchState(CharacterBaseState nextState)
+        // {
+        //     currentState.OnExitState(this, nextState);
+        // }
 
         void MovePlayer(Vector2 InputAxis)
         {
@@ -106,6 +117,7 @@ namespace CustomController
         private void Update()
         {
             // RotatePlayerToEmeny();
+            // currentState.UpdateState(this);
         }
 
 
