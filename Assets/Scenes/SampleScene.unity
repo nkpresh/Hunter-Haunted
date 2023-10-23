@@ -199,11 +199,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11ddb0423edb054187942922e4c4f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObj: {fileID: 231196097}
   rotateSpeed: 0
   characterType: 1
   healthBar: {fileID: 824428589}
-  Target: {fileID: 0}
+  animationController: {fileID: 231196099}
+  velocity: 0
 --- !u!1 &13689983
 GameObject:
   m_ObjectHideFlags: 0
@@ -4502,7 +4502,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507218791}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.52, z: -13.072236}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4511,7 +4511,7 @@ Transform:
   - {fileID: 3549692263461140850}
   m_Father: {fileID: 0}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1547221189
 GameObject:
   m_ObjectHideFlags: 0
@@ -7829,11 +7829,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11ddb0423edb054187942922e4c4f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObj: {fileID: 4181832922023453640}
-  rotateSpeed: 50
+  rotateSpeed: 300
   characterType: 0
   healthBar: {fileID: 641537393}
-  Target: {fileID: 0}
+  animationController: {fileID: 7467855054220845833}
+  velocity: 5000
 --- !u!4 &1625673879274698795
 Transform:
   m_ObjectHideFlags: 0

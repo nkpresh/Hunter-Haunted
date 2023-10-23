@@ -31,14 +31,20 @@ public class AnimationStateController : MonoBehaviour
         animator.SetBool("Moving", active);
     }
 
-    public void Attack()
-    {
-        
-    }
 
-    public void SwitchAnimationState()
+    public void SwitchAnimationFloat(string name, float value)
     {
 
     }
 
+    public void SetAnimationBool(string name, bool value)
+    {
+        animator.SetBool(name, value);
+
+    }
+
+    public void SetAnimationTrigger(string trigger)
+    {
+        animator.SetTrigger(trigger);
+    }
 }

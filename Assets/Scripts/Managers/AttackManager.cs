@@ -12,16 +12,13 @@ public class AttackManager
     public float currentEnergy;
     public float MaxEnergy;
     CharacterController player;
-    CharacterController target;
-
     public float timer;
-    bool canAttack;
+    // bool canAttack;
 
     List<CharacterController> targets;
 
     public AttackManager(CharacterController player, float maxEnergy, float currentEnergy)
     {
-        target = BattleManager.Instance.enemyCollection[0];
         targets = new List<CharacterController>();
         this.player = player;
         MaxEnergy = maxEnergy;
@@ -32,64 +29,67 @@ public class AttackManager
     {
         if (timer >= 2)
         {
-            canAttack = true;
+            // canAttack = true;
             timer = 0;
         }
     }
-    public void Attack(AttackType attackType, Action callback)
+    public void Attack(AttackType attackType, CharacterController target)
     {
         // if (canAttack == false) return;
         switch (attackType)
         {
             case (AttackType.DownwardAttack):
-                OnDownwardAttack();
+                OnDownwardAttack(target);
                 break;
             case (AttackType.BackwardAttack):
-                OnBackwardAttack();
+                OnBackwardAttack(target);
                 break;
             case (AttackType.RoundAttack):
-                OnRoundAttack();
+                OnRoundAttack(target);
                 break;
             case (AttackType.Kick):
-                OnKickAttack();
+                OnKickAttack(target);
                 break;
             default:
                 break;
         }
-        callback();
-    }
-    public void OnDownwardAttack()
-    {
-        target.TakeDamage(5);
+
     }
 
-    public void OnBackwardAttack()
+    public IEnumerator StartAttack(CharacterController target, string animName, float amount, float delay)
     {
-        target.TakeDamage(5);
+        player.animationController.SetAnimationTrigger(animName);
+        yield return new WaitForSeconds(delay);
+        target.TakeDamage(amount);
+        yield break;
+
     }
 
-    public void OnKickAttack()
+    public void OnDownwardAttack(CharacterController target)
     {
-        target.TakeDamage(5);
+        target.StartCoroutine(StartAttack(target, "DownAttackTrig", 5, 0.5F));
     }
 
-    public void OnRoundAttack()
+    public void OnBackwardAttack(CharacterController target)
     {
-        target.TakeDamage(10);
+        target.StartCoroutine(StartAttack(target, "BackAttackTrig", 5, 0.5F));
+
     }
 
-    public void ComboAttack()
+    public void OnKickAttack(CharacterController target)
     {
-        target.TakeDamage(20);
+        // target.StartCoroutine(StartAttack(target, "KickTrig", 5));
+
     }
 
-    public void RotatePlayerTo(Transform target)
+    public void OnRoundAttack(CharacterController target)
     {
-        var dotProd = Vector3.Dot(player.playerObj.transform.forward.normalized, target.forward.normalized);
-        if (Math.Abs(dotProd) != 1)
-        {
-            player.SetRotation(-target.transform.forward);
-        }
+        target.StartCoroutine(StartAttack(target, "RoundAttackTrig", 10, 1.2F));
+    }
+
+    public void ComboAttack(CharacterController target)
+    {
+        // target.StartCoroutine(StartAttack(target, 20));
     }
 
     public void IncreaseEnergy(float rate)
