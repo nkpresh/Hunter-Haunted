@@ -26,14 +26,13 @@ public class CustomInputManager : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+        {
+            if (OnMove != null)
+                OnMove.Invoke(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
+        }
         if (Input.anyKeyDown)
         {
-            if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
-            {
-                if (OnMove != null)
-                    OnMove.Invoke(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
-            }
-
             if (Input.GetKeyDown(KeyCode.T))
             {
                 if (OnDownwardAttack != null)
@@ -52,18 +51,6 @@ public class CustomInputManager : MonoBehaviour
                     OnRoundAttack.Invoke(AttackType.RoundAttack);
             }
 
-            // if (Input.GetKeyDown(KeyCode.I))
-            // {
-            //     if (OnDownwardAttack != null)
-            //         OnDownwardAttack.Invoke(AttackType.RoundAttack);
-            // }
-
-            //Combo
-            // if (Input.GetKeyDown(KeyCode.T))
-            // {
-            //     if (OnDownwardAttack != null)
-            //         OnDownwardAttack.Invoke(AttackType.DownwardAttack);
-            // }
         }
     }
 }

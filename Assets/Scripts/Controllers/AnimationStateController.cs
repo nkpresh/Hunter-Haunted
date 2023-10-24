@@ -20,21 +20,30 @@ public class AnimationStateController : MonoBehaviour
     {
         if (isMoving)
         {
-            if (velocity <= 5)
-                velocity += 0.01f;
+            if (velocity < 1)
+            {
+                SetAnimationFloat("Velocity", velocity);
+                velocity += 0.001f;
+            }
+        }
+        else
+        {
+            velocity = 0;
         }
     }
 
     public void Move(bool active)
     {
         isMoving = active;
-        animator.SetBool("Moving", active);
+        SetAnimationBool("Move", active);
+        SetAnimationFloat("Velocity", velocity);
+        print(velocity);
     }
 
 
-    public void SwitchAnimationFloat(string name, float value)
+    public void SetAnimationFloat(string name, float value)
     {
-
+        animator.SetFloat(name, value);
     }
 
     public void SetAnimationBool(string name, bool value)

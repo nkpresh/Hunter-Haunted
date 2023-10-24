@@ -202,8 +202,8 @@ MonoBehaviour:
   rotateSpeed: 0
   characterType: 1
   healthBar: {fileID: 824428589}
+  moveSpeed: 0
   animationController: {fileID: 231196099}
-  velocity: 0
 --- !u!1 &13689983
 GameObject:
   m_ObjectHideFlags: 0
@@ -7829,11 +7829,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11ddb0423edb054187942922e4c4f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 300
+  rotateSpeed: 500
   characterType: 0
   healthBar: {fileID: 641537393}
+  moveSpeed: 7
   animationController: {fileID: 7467855054220845833}
-  velocity: 5000
 --- !u!4 &1625673879274698795
 Transform:
   m_ObjectHideFlags: 0

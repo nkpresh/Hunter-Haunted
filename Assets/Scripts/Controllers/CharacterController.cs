@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Enums;
 using Models;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,21 +20,15 @@ namespace CustomController
         CharacterType characterType;
         [SerializeField]
         Slider healthBar;
+        [SerializeField]
+        float moveSpeed;
 
         public AnimationStateController animationController;
         public CharacterBackend characterBackend;
-
         Rigidbody rb;
-
-        [SerializeField]
-        float velocity;
-
         CharacterController target;
         AttackManager attackManager;
-
-
         bool canRotate;
-
 
 
         void Start()
@@ -81,8 +76,10 @@ namespace CustomController
 
         public void Attack(AttackType attackType)
         {
-            canRotate = true;
-            attackManager.Attack(attackType, target);
+            attackManager.Attack(attackType, target, () =>
+            {
+                canRotate = true;
+            });
         }
 
         public void TakeDamage(float amount)
@@ -93,28 +90,14 @@ namespace CustomController
 
         void MovePlayer(Vector2 InputAxis)
         {
-            //float vChange = Time.deltaTime * velocity;
             float dirZ = InputAxis.y;
             float dirX = InputAxis.x;
-            Vector3 direction = new Vector3(dirX, 0, -dirZ) * Time.deltaTime * velocity;
-            print(direction);
-            rb.AddForce(direction);
-            // canRotate = true;
-            // SetRotation(direction);
-        }
-
-        public void SetAttackRotation(Vector3 dir)
-        {
-            var dotProd = Vector3.Dot(transform.forward.normalized, dir.normalized);
-
-            if (dotProd != 0)
-            {
-                SetRotation(-dir);
-            }
-            else
-            {
-                canRotate = false;
-            }
+            Vector3 dir = new Vector3(dirX, 0, -dirZ);
+            Vector3 displacement = transform.position + dir * moveSpeed * Time.deltaTime;
+            transform.position = displacement;
+            SetRotation(dir);
+            print(dir.magnitude);
+            animationController.Move(dir.magnitude > 0.03);
         }
 
         public void SetRotation(Vector3 dir)
@@ -124,13 +107,18 @@ namespace CustomController
         }
         private void Update()
         {
-            // if (canRotate)
-            // {
-            //     SetRotation(target.transform.forward);
-            // }
+            if (canRotate)
+            {
+                Vector3 enemyDir = (target.transform.position - transform.position).normalized;
+                if (enemyDir == Vector3.zero) return;
+                var dotProd = Vector3.Dot(transform.forward, enemyDir);
+                SetRotation(enemyDir);
+                if (dotProd == 1 || dotProd == 0)
+                {
+                    canRotate = false;
+                }
+            }
         }
-
-
     }
 }
 

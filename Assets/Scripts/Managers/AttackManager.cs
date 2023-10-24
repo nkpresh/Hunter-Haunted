@@ -33,9 +33,8 @@ public class AttackManager
             timer = 0;
         }
     }
-    public void Attack(AttackType attackType, CharacterController target)
+    public void Attack(AttackType attackType, CharacterController target, Action callback)
     {
-        // if (canAttack == false) return;
         switch (attackType)
         {
             case (AttackType.DownwardAttack):
@@ -53,7 +52,7 @@ public class AttackManager
             default:
                 break;
         }
-
+        callback();
     }
 
     public IEnumerator StartAttack(CharacterController target, string animName, float amount, float delay)
